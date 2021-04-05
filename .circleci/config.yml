@@ -48,7 +48,7 @@ jobs:
       - heroku/install
       - run:
           name: heroku login
-          command: docker login --username=_ --password=$HEROKU_AUTH_TOKEN registry.heroku.com
+          command: heroku login --username=_ --password=$HEROKU_AUTH_TOKEN 
       - run:
           name: push docker image
           command: heroku container:push web -a $HEROKU_APP_NAME
