@@ -48,6 +48,9 @@ jobs:
       - heroku/install
       - run:
           name: heroku login
+          command: heroku login
+      - run:
+          name: heroku container login
           command: heroku container:login
       - run:
           name: push docker image
