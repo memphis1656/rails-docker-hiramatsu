@@ -47,10 +47,14 @@ jobs:
           version: 19.03.13
       - heroku/install
       - run:
-          name: Push container to registry.heroku.com
-          command: |
-            docker login --username=_ --password=$HEROKU_AUTH_TOKEN registry.heroku.com
-            docker push registry.heroku.com/${HEROKU_APP_NAME}/web
+          name: heroku login
+          command: docker login --username=_ --password-stdin registry.heroku.com
+      - run:
+          name: push docker image
+          command: heroku container:push web -a $HEROKU_APP_NAME
+      - run:
+          name: release docker image
+          command: heroku container:release web -a $HEROKU_APP_NAME
       - run:
           name: database setup
           command: heroku run bundle exec rake db:migrate RAILS_ENV=production -a $HEROKU_APP_NAME
